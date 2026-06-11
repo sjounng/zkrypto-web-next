@@ -203,11 +203,16 @@ export default function SiteBehavior() {
       const items = Array.from(orbit.querySelectorAll<HTMLElement>(".orbit-item"));
       if (!items.length) return;
 
-      if (getComputedStyle(items[0]).position === "static") {
-        orbit.style.removeProperty("min-height");
-        orbit.style.removeProperty("--orbit-row");
-        return;
-      }
+      // Below the design width, keep the orbital layout at a fixed width and
+      // scale the whole diagram down so its proportions never break.
+      const DESIGN_WIDTH = 660;
+      orbit.style.removeProperty("width");
+      orbit.style.removeProperty("scale");
+      orbit.style.removeProperty("transform-origin");
+      orbit.style.removeProperty("margin-bottom");
+      const available = orbit.clientWidth;
+      const scale = available < DESIGN_WIDTH ? available / DESIGN_WIDTH : 1;
+      if (scale < 1) orbit.style.width = `${DESIGN_WIDTH}px`;
 
       const edge = 24;
       const gap = 18;
@@ -217,6 +222,14 @@ export default function SiteBehavior() {
 
       orbit.style.setProperty("--orbit-row", `${rowOffset}px`);
       orbit.style.minHeight = `${minHeight}px`;
+
+      if (scale < 1) {
+        orbit.style.transformOrigin = "top left";
+        orbit.style.setProperty("scale", String(scale));
+        // scale() leaves the layout box untouched, so reclaim the leftover
+        // height to keep the section spacing tight.
+        orbit.style.marginBottom = `${-minHeight * (1 - scale)}px`;
+      }
     }
 
     applyTheme(getStoredTheme() || (isProductPage ? "light" : getSystemTheme()));
@@ -512,9 +525,12 @@ export default function SiteBehavior() {
         const ease =
           progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
 
-        const vMargin = (10 * (1 - ease)).toFixed(2);
-        const hMargin = (25 * (1 - ease)).toFixed(2);
-        const radius = Math.round(24 * (1 - ease));
+        // On narrow viewports the full 25vw inset would squeeze the panel to
+        // roughly half the screen, so the expansion starts from a gentler inset.
+        const compact = window.innerWidth <= 768;
+        const vMargin = ((compact ? 3.5 : 10) * (1 - ease)).toFixed(2);
+        const hMargin = ((compact ? 7 : 25) * (1 - ease)).toFixed(2);
+        const radius = Math.round((compact ? 18 : 24) * (1 - ease));
 
         inner!.style.borderRadius = `${radius}px`;
         inner!.style.marginLeft = `${hMargin}vw`;
@@ -522,19 +538,24 @@ export default function SiteBehavior() {
         inner!.style.marginTop = `${vMargin}rem`;
         inner!.style.marginBottom = `${vMargin}rem`;
 
-        const sectionPad = Math.round(80 + 80 * (1 - ease));
+        const sectionPad = compact
+          ? Math.round(48 + 40 * (1 - ease))
+          : Math.round(80 + 80 * (1 - ease));
         section!.style.paddingTop = `${sectionPad}px`;
         section!.style.paddingBottom = `${sectionPad}px`;
 
         ticking = false;
       }
 
-      on(window, "scroll", () => {
+      const requestUpdate = () => {
         if (!ticking) {
           requestAnimationFrame(update);
           ticking = true;
         }
-      }, { passive: true });
+      };
+
+      on(window, "scroll", requestUpdate, { passive: true });
+      on(window, "resize", requestUpdate, { passive: true });
 
       update();
     })();

@@ -82,6 +82,21 @@ html[data-theme="light"] {
   --shadow-focus: 0 0 0 4px rgba(122, 167, 255, 0.24);
 }
 
+/* Mobile type scale: every component that sizes text through the tokens
+   steps down one notch, so nothing reads oversized on a phone. */
+@media (max-width: 760px) {
+  :root {
+    --text-sm: 13px;
+    --text-base: 15px;
+    --text-lg: 16px;
+    --text-xl: 18px;
+    --text-2xl: 20px;
+    --text-3xl: 26px;
+    --text-4xl: 30px;
+    --text-5xl: 40px;
+  }
+}
+
 html[data-theme="dark"] {
   color-scheme: dark;
 

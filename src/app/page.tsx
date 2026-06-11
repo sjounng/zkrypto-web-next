@@ -223,16 +223,16 @@ export default async function HomePage() {
               <p className="eyebrow">{content.trustProof.eyebrow}</p>
               <h2 id="proof-title">{content.trustProof.headline}</h2>
               <p>{content.trustProof.lead}</p>
+            </div>
 
-              <div className="proof-timeline" aria-label="지크립토 신뢰 흐름">
-                {content.trustProof.milestones.map((item) => (
-                  <article data-stagger key={item.phase}>
-                    <span>{item.phase}</span>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </article>
-                ))}
-              </div>
+            <div className="proof-timeline" aria-label="지크립토 신뢰 흐름" data-reveal>
+              {content.trustProof.milestones.map((item) => (
+                <article data-stagger key={item.phase}>
+                  <span>{item.phase}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </article>
+              ))}
             </div>
 
             <div className="proof-card-grid" data-reveal>

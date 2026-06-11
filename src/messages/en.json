@@ -1,0 +1,34 @@
+{
+  "Chrome": {
+    "skipLink": "Skip to main content",
+    "brandHome": "ZKRYPTO home",
+    "brandTop": "Back to top of ZKRYPTO home",
+    "brandHomeLink": "Go to ZKRYPTO home",
+    "mainMenu": "Main menu",
+    "mobileMenu": "Mobile main menu",
+    "product": "Product",
+    "contact": "Contact",
+    "newsroom": "Newsroom",
+    "themeToDark": "Switch to dark mode",
+    "themeToLight": "Switch to light mode",
+    "langSelect": "Select language",
+    "korean": "한국어",
+    "english": "English",
+    "openMobileMenu": "Open mobile menu",
+    "footerMenu": "Footer menu",
+    "close": "Close",
+    "partnerLogo": "Partner logo",
+    "ecosystemMarquee": "Collaboration and trust network logo stream",
+    "contactForm": "Contact form"
+  },
+  "Newsroom": {
+    "title": "Newsroom — ZKRYPTO",
+    "description": "The ZKRYPTO newsroom is coming soon.",
+    "eyebrow": "Newsroom",
+    "heading": "Coming soon",
+    "lead": "We're building a newsroom for ZKRYPTO's announcements and press. It will be live here shortly.",
+    "note": "For inquiries or partnership proposals, reach us below.",
+    "backHome": "Back to home",
+    "contact": "Get in touch"
+  }
+}

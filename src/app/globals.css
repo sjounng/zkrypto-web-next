@@ -1,0 +1,8 @@
+/*
+ * Global styles ported 1:1 from the original Rust/Axum site.
+ * Order matters: design tokens first, then the component styles that consume
+ * them. Class names are kept identical so the theme switch (html[data-theme])
+ * and the client-side class toggling (is-visible, is-open, …) keep working.
+ */
+@import "../styles/tokens.css";
+@import "../styles/page.css";

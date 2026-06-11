@@ -21,7 +21,7 @@ export default function ContactModal({
   title,
   body,
   labels,
-  mailto = "jwsong0595@gmail.com",
+  mailto = "contact@zkrypto.com",
 }: ContactModalProps) {
   const t = useTranslations("Chrome");
 
